@@ -1,0 +1,322 @@
+/**
+ * ============================================
+ * SISTEMA DE REGISTRO DE INCIDENCIAS TÉCNICAS
+ * Estilos Pastel & Decoración
+ * ============================================
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(145deg, #faf3e8 0%, #f2e9df 100%);
+    font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Decoración de fondo */
+body::before {
+    content: "🌸";
+    font-size: 180px;
+    position: fixed;
+    bottom: -40px;
+    right: -40px;
+    opacity: 0.08;
+    pointer-events: none;
+    transform: rotate(-15deg);
+}
+
+body::after {
+    content: "🍃";
+    font-size: 140px;
+    position: fixed;
+    top: 10%;
+    left: -30px;
+    opacity: 0.06;
+    pointer-events: none;
+    transform: rotate(20deg);
+}
+
+/* Tarjetas */
+.pastel-card {
+    background: rgba(255, 253, 250, 0.96);
+    backdrop-filter: blur(2px);
+    border-radius: 2rem;
+    border: 1px solid rgba(235, 210, 185, 0.6);
+    box-shadow: 0 15px 35px -12px rgba(90, 60, 40, 0.08);
+    transition: all 0.25s ease;
+    overflow: hidden;
+}
+
+.pastel-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -14px rgba(80, 55, 35, 0.12);
+}
+
+.card-header-pastel {
+    background: #fff7f0;
+    padding: 1rem 1.5rem;
+    border-bottom: 2px dashed #f0dfcf;
+    border-radius: 2rem 2rem 0 0;
+}
+
+.card-header-pastel h3 {
+    color: #b4845c;
+    letter-spacing: -0.3px;
+    margin-bottom: 5px;
+}
+
+.card-header-pastel small {
+    color: #b89578;
+    font-size: 0.75rem;
+}
+
+.card-body-pastel {
+    padding: 1.5rem;
+}
+
+/* Badges */
+.badge-title {
+    background: #faeadc;
+    padding: 0.2rem 1rem;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    color: #b1754a;
+}
+
+.storage-badge {
+    background: #e7ddd1;
+    color: #8b694c;
+    padding: 0.5rem 1rem;
+    border-radius: 3rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Botones */
+.btn-pastel-primary {
+    background: #dcece2;
+    border: none;
+    color: #4a6b58;
+    font-weight: 600;
+    border-radius: 2.5rem;
+    padding: 0.7rem 1.2rem;
+    transition: all 0.2s;
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+.btn-pastel-primary:hover {
+    background: #cde0d3;
+    transform: translateY(-2px);
+    color: #2d4a3a;
+    box-shadow: 0 6px 14px rgba(110, 80, 55, 0.08);
+}
+
+.btn-pastel-secondary {
+    background: #fbe9db;
+    border: 1px solid #f0d5be;
+    color: #b47c56;
+    font-weight: 600;
+    border-radius: 2.5rem;
+    padding: 0.7rem 1.2rem;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.btn-pastel-secondary:hover {
+    background: #f7e0cc;
+    color: #9b623e;
+    transform: translateY(-1px);
+}
+
+.btn-refresh {
+    background: #ede0d4;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.3rem 1rem;
+    font-size: 0.75rem;
+    color: #9b765a;
+    transition: 0.2s;
+}
+
+.btn-refresh:hover {
+    background: #e2d0c0;
+    color: #7b553a;
+}
+
+/* Badges de estado */
+.badge-critica {
+    background: #ffe1d4;
+    color: #c46536;
+    border-radius: 2rem;
+    padding: 0.35rem 1rem;
+    font-weight: 600;
+    font-size: 0.7rem;
+    display: inline-block;
+}
+
+.badge-leve {
+    background: #e1f0e5;
+    color: #548264;
+    border-radius: 2rem;
+    padding: 0.35rem 1rem;
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+
+.badge-pendiente {
+    background: #ffefdf;
+    color: #c2864b;
+    border-radius: 2rem;
+    padding: 0.3rem 1rem;
+    font-weight: 500;
+    font-size: 0.7rem;
+    display: inline-block;
+}
+
+.badge-resuelto {
+    background: #cce6dd;
+    color: #3a7a5e;
+    border-radius: 2rem;
+    padding: 0.3rem 1rem;
+    font-weight: 500;
+    font-size: 0.7rem;
+    display: inline-block;
+}
+
+/* Dashboard stats */
+.dashboard-stat {
+    background: #fffcf7;
+    border-radius: 1.5rem;
+    padding: 1rem;
+    border-left: 6px solid #e7c8ab;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+.kpi-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #b87a4e;
+    margin: 0.2rem 0;
+    line-height: 1.2;
+}
+
+/* Tabla */
+.table-custom {
+    width: 100%;
+    background: #fffcf9;
+    border-radius: 1.2rem;
+    border-collapse: collapse;
+    overflow: hidden;
+    font-size: 0.8rem;
+}
+
+.table-custom thead th {
+    background: #faf0e8;
+    color: #8a674b;
+    font-weight: 600;
+    padding: 0.8rem 0.5rem;
+    border-bottom: 2px solid #f0e0d2;
+}
+
+.table-custom td {
+    padding: 0.7rem 0.5rem;
+    border-bottom: 1px solid #f3e4d9;
+    color: #5f4a36;
+}
+
+.table-custom tbody tr:hover {
+    background: #fff6ef;
+    transition: 0.15s;
+}
+
+/* Formularios */
+.form-control, .form-select {
+    background-color: #fffdfa;
+    border: 1px solid #f0ddce;
+    border-radius: 1.2rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #e2c2a3;
+    box-shadow: 0 0 0 3px rgba(207, 159, 109, 0.15);
+    outline: none;
+}
+
+.form-text.text-pastel {
+    color: #b68b67;
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
+}
+
+/* Alertas */
+.alert-pastel-success {
+    background: #e2f0e6;
+    border: none;
+    border-radius: 1.2rem;
+    color: #3a6b53;
+    font-size: 0.85rem;
+    padding: 0.7rem;
+}
+
+.alert-pastel-danger {
+    background: #ffe6db;
+    border: none;
+    border-radius: 1.2rem;
+    color: #bc6a42;
+    font-size: 0.85rem;
+    padding: 0.7rem;
+}
+
+.info-pastel {
+    color: #ba8b64;
+    font-size: 0.75rem;
+}
+
+/* Footer */
+.footer-pastel {
+    background: rgba(245, 236, 225, 0.7);
+    backdrop-filter: blur(4px);
+    border-radius: 2.5rem;
+    padding: 0.9rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #a77d5b;
+}
+
+/* Scroll */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f4e5d9;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ddc2aa;
+    border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-lg {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .kpi-number {
+        font-size: 1.8rem;
+    }
+    .table-custom {
+        font-size: 0.7rem;
+    }
+}

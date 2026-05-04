@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Sistema de Incidencias Técnicas | Dashboard Pastel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="container-lg py-4">
+    <!-- Encabezado decorativo -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-6 fw-bold"><i class="fas fa-leaf me-2"></i>Registro de Incidencias <span class="badge-title">Técnicas</span></h1>
+            <p class="text-muted mt-2"><i class="fas fa-chalkboard-user me-1"></i> Datos sin ruido • Dashboard gerencial oportuno</p>
+        </div>
+        <div>
+            <span class="storage-badge"><i class="fas fa-database me-1"></i> SQLite (local)</span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- COLUMNA FORMULARIO Y PROCESAMIENTO -->
+        <div class="col-lg-5">
+            <!-- Tarjeta de registro con validación -->
+            <div class="pastel-card mb-4">
+                <div class="card-header-pastel">
+                    <h3 class="h5 fw-bold mb-0"><i class="fas fa-pen-fancy me-2"></i>Nueva incidencia</h3>
+                    <small>Validación semántica: mínimo 10 caracteres</small>
+                </div>
+                <div class="card-body-pastel">
+                    <form id="formIncidencia">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">📝 Descripción del problema <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="descripcion" rows="2" placeholder="Ej: El sistema de facturación dejó de responder..." required></textarea>
+                            <div class="form-text text-pastel">Mínimo 10 caracteres para evitar ruido.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">🏷️ Clasificación estratégica</label>
+                            <select class="form-select" id="categoria" required>
+                                <option value="" disabled selected>-- Seleccionar tipo --</option>
+                                <option value="Critica">🔴 Categoría A: Crítica (afecta operación)</option>
+                                <option value="Leve">🟢 Categoría B: Leve (fallo menor o sugerencia)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">📅 Fecha de detección</label>
+                            <input type="date" class="form-control" id="fechaRegistro">
+                        </div>
+                        <button type="submit" class="btn-pastel-primary w-100"><i class="fas fa-save me-1"></i> Registrar incidencia</button>
+                    </form>
+                    <div id="alertaForm" class="mt-3"></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de procesamiento: cambiar estado -->
+            <div class="pastel-card">
+                <div class="card-header-pastel">
+                    <h3 class="h5 fw-bold mb-0"><i class="fas fa-arrows-spin me-2"></i>Transformar estado</h3>
+                    <small>Pendiente → Resuelto (métrica de respuesta)</small>
+                </div>
+                <div class="card-body-pastel">
+                    <label class="fw-semibold mb-2">Seleccionar incidencia pendiente:</label>
+                    <select class="form-select mb-3" id="selectResolver">
+                        <option value="">-- Incidencias pendientes --</option>
+                    </select>
+                    <button class="btn-pastel-secondary w-100" id="btnResolver"><i class="fas fa-check-circle me-1"></i> Marcar como Resuelto</button>
+                    <div id="msgResolver" class="small mt-2 info-pastel"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: DASHBOARD GERENCIAL -->
+        <div class="col-lg-7">
+            <div class="pastel-card dashboard-main">
+                <div class="card-header-pastel">
+                    <h3 class="h5 fw-bold mb-0"><i class="fas fa-chart-line me-2"></i>Dashboard de decisiones</h3>
+                    <small>Atributo de oportunidad: datos al minuto</small>
+                </div>
+                <div class="card-body-pastel">
+                    <!-- KPIs pastel -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="dashboard-stat">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="text-uppercase small fw-semibold">📋 Pendientes HOY</span>
+                                        <h2 class="kpi-number" id="kpiPendientesHoy">0</h2>
+                                    </div>
+                                    <i class="fas fa-hourglass-half fs-1 opacity-50"></i>
+                                </div>
+                                <div class="small text-muted">Incidencias registradas hoy sin resolver</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dashboard-stat">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="text-uppercase small fw-semibold">⏱️ Tiempo promedio respuesta</span>
+                                        <h2 class="kpi-number" id="kpiTiempoPromedio">0.0</h2>
+                                        <span class="small text-muted">horas</span>
+                                    </div>
+                                    <i class="fas fa-clock fs-1 opacity-50"></i>
+                                </div>
+                                <div class="small text-muted">Basado en incidencias resueltas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico actualizado -->
+                    <div class="mb-4">
+                        <h6 class="fw-semibold"><i class="fas fa-chart-simple me-1"></i> Panorama actual: críticas vs leves</h6>
+                        <canvas id="chartIncidencias" width="400" height="200" style="max-height: 210px; width:100%"></canvas>
+                    </div>
+
+                    <!-- Tabla de incidencias actualizable -->
+                    <div class="mt-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="fw-semibold"><i class="fas fa-table-list me-1"></i> Registro histórico</h6>
+                            <button class="btn-refresh" id="btnRecargarTabla"><i class="fas fa-arrows-rotate me-1"></i> Refrescar</button>
+                        </div>
+                        <div class="table-responsive mt-2">
+                            <table class="table-custom">
+                                <thead>
+                                    <tr><th>ID</th><th>Descripción</th><th>Categoría</th><th>Estado</th><th>Fecha Reg.</th><th>Resolución</th><th>Tiempo (h)</th></tr>
+                                </thead>
+                                <tbody id="tablaBody">
+                                    <tr><td colspan="7" class="text-center">Cargando datos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-pastel mt-5">
+        <i class="fas fa-check-circle text-success me-1"></i> Validación + Clasificación (A/B) + Dashboard oportuno (tiempo promedio y pendientes hoy)
+    </footer>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
